@@ -96,7 +96,7 @@ variable "image_id" {
 
 variable "instance_types" {
   description = "Instance types to launch, minimum 2 types must be specified. List of Map of 'instance_type'(required) and 'weighted_capacity'(optional)."
-  type        = list(map(string))
+  type        = list(map(any))
   default     = [{}]
 }
 
@@ -223,13 +223,13 @@ variable "suspended_processes" {
 
 variable "tags" {
   description = "A list of tag blocks. Each element should have keys named key, value, and propagate_at_launch."
-  type        = list(map(string))
+  type        = list(map(any))
   default     = []
 }
 
 variable "tags_as_map" {
   description = "A map of tags and values in the same format as other resources accept. This will be converted into the non-standard format that the aws_autoscaling_group requires."
-  type        = map(string)
+  type        = map(any)
   default     = {}
 }
 
