@@ -94,6 +94,7 @@ resource "aws_autoscaling_group" "this" {
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
   protect_from_scale_in     = var.protect_from_scale_in
   service_linked_role_arn   = var.service_linked_role_arn
+  max_instance_lifetime     = var.max_instance_lifetime
 
   mixed_instances_policy {
     launch_template {
@@ -174,6 +175,7 @@ resource "aws_autoscaling_group" "this_with_initial_lifecycle_hook" {
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
   protect_from_scale_in     = var.protect_from_scale_in
   service_linked_role_arn   = var.service_linked_role_arn
+  max_instance_lifetime     = var.max_instance_lifetime
 
   mixed_instances_policy {
     launch_template {
