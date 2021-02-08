@@ -326,3 +326,9 @@ variable "max_instance_lifetime" {
   type        = number
   default     = null
 }
+
+variable "capacity_rebalance" {
+  description = "Indicates whether capacity rebalance is enabled."
+  type        = bool
+  default     = null
+}
