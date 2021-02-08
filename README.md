@@ -11,7 +11,7 @@ This module will require more than 1 instance type. Suitable to back ECS Cluster
 
 ## Terraform versions
 
-Terraform 0.12. Pin module version to `~> v2.0`. Submit pull-requests to `master` branch.
+Terraform 0.12. Pin module version to `~> v2.0`. Submit pull-requests to `main` branch.
 
 Terraform 0.11. Pin module version to `~> v1.0`. Submit pull-requests to `terraform011` branch.
 
@@ -145,13 +145,13 @@ EOF
 
 ## Tags
 
-There are two ways to specify tags for auto-scaling group in this module - `tags` and `tags_as_map`. See [examples/asg_ec2/main.tf](https://github.com/terraform-aws-modules/terraform-aws-autoscaling/blob/master/examples/asg_ec2/main.tf) for example.
+There are two ways to specify tags for auto-scaling group in this module - `tags` and `tags_as_map`. See [examples/asg_ec2/main.tf](https://github.com/terraform-aws-modules/terraform-aws-autoscaling/blob/main/examples/asg_ec2/main.tf) for example.
 
 ## Examples
 
-* [Auto Scaling Group without ELB](https://github.com/terraform-aws-modules/terraform-aws-autoscaling/tree/master/examples/asg_ec2)
-* [Auto Scaling Group with ELB](https://github.com/terraform-aws-modules/terraform-aws-autoscaling/tree/master/examples/asg_elb)
-* [Auto Scaling Group with external Launch Template](https://github.com/terraform-aws-modules/terraform-aws-autoscaling/tree/master/examples/asg_ec2_external_launch_template)
+* [Auto Scaling Group without ELB](https://github.com/terraform-aws-modules/terraform-aws-autoscaling/tree/main/examples/asg_ec2)
+* [Auto Scaling Group with ELB](https://github.com/terraform-aws-modules/terraform-aws-autoscaling/tree/main/examples/asg_elb)
+* [Auto Scaling Group with external Launch Template](https://github.com/terraform-aws-modules/terraform-aws-autoscaling/tree/main/examples/asg_ec2_external_launch_template)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
