@@ -198,6 +198,7 @@ No requirements.
 | launch\_template | The name of the launch template to use (if it is created outside of this module) | `string` | `""` | no |
 | load\_balancers | A list of elastic load balancer names to add to the autoscaling group names | `list(string)` | `[]` | no |
 | lt\_name | Creates a unique name for launch template beginning with the specified prefix | `string` | `""` | no |
+| max\_instance\_lifetime | The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds | `number` | `null` | no |
 | max\_size | The maximum size of the auto scale group | `number` | n/a | yes |
 | metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute | `string` | `"1Minute"` | no |
 | min\_elb\_capacity | Setting this causes Terraform to wait for this number of instances to show up healthy in the ELB only on creation. Updates will not wait on ELB instance number changes | `number` | `0` | no |
