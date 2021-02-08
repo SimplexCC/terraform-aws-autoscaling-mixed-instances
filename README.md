@@ -173,6 +173,7 @@ No requirements.
 | asg\_name | Creates a unique name for autoscaling group beginning with the specified prefix | `string` | `""` | no |
 | associate\_public\_ip\_address | Associate a public ip address with an instance in a VPC | `bool` | `false` | no |
 | block\_device\_mappings | Mappings of block devices, see https://www.terraform.io/docs/providers/aws/r/launch_template.html#block-devices | `list(any)` | <pre>[<br>  {}<br>]</pre> | no |
+| capacity\_rebalance | Indicates whether capacity rebalance is enabled. | `bool` | `null` | no |
 | create\_asg | Whether to create autoscaling group | `bool` | `true` | no |
 | create\_asg\_with\_initial\_lifecycle\_hook | Create an ASG with initial lifecycle hook | `bool` | `false` | no |
 | create\_lt | Whether to create launch template | `bool` | `true` | no |
