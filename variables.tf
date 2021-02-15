@@ -169,6 +169,12 @@ variable "desired_capacity" {
   type        = number
 }
 
+variable "ignore_desired_capacity_changes" {
+  description = "Ignores any changes to `desired_capacity` parameter after apply. Note updating this value will destroy the existing service and recreate it."
+  default     = false
+  type        = bool
+}
+
 variable "vpc_zone_identifier" {
   description = "A list of subnet IDs to launch resources in"
   type        = list(string)

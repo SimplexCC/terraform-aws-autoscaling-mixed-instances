@@ -61,7 +61,7 @@ resource "aws_launch_template" "this" {
 # Autoscaling group
 ####################
 resource "aws_autoscaling_group" "this" {
-  count = var.create_asg && false == var.create_asg_with_initial_lifecycle_hook ? 1 : 0
+  count = var.create_asg && false == var.ignore_desired_capacity_changes ? 1 : 0
 
   name_prefix = "${join(
     "-",
@@ -119,6 +119,19 @@ resource "aws_autoscaling_group" "this" {
       spot_allocation_strategy                 = var.spot_allocation_strategy
       spot_instance_pools                      = var.spot_allocation_strategy == "lowest-price" ? var.spot_instance_pools : null
       spot_max_price                           = var.spot_price
+    }
+  }
+
+  dynamic "initial_lifecycle_hook" {
+    for_each = var.create_asg && var.create_asg_with_initial_lifecycle_hook ? [1] : []
+    content {
+      name                    = var.initial_lifecycle_hook_name
+      lifecycle_transition    = var.initial_lifecycle_hook_lifecycle_transition
+      notification_metadata   = var.initial_lifecycle_hook_notification_metadata
+      heartbeat_timeout       = var.initial_lifecycle_hook_heartbeat_timeout
+      notification_target_arn = var.initial_lifecycle_hook_notification_target_arn
+      role_arn                = var.initial_lifecycle_hook_role_arn
+      default_result          = var.initial_lifecycle_hook_default_result
     }
   }
 
@@ -139,11 +152,11 @@ resource "aws_autoscaling_group" "this" {
   }
 }
 
-################################################
-# Autoscaling group with initial lifecycle hook
-################################################
-resource "aws_autoscaling_group" "this_with_initial_lifecycle_hook" {
-  count = var.create_asg && var.create_asg_with_initial_lifecycle_hook ? 1 : 0
+#########################################################
+# Autoscaling group that ignore desired capacity changes
+#########################################################
+resource "aws_autoscaling_group" "this_ignore_desired_capacity_changes" {
+  count = var.create_asg && var.ignore_desired_capacity_changes ? 1 : 0
 
   name_prefix = "${join(
     "-",
@@ -204,14 +217,17 @@ resource "aws_autoscaling_group" "this_with_initial_lifecycle_hook" {
     }
   }
 
-  initial_lifecycle_hook {
-    name                    = var.initial_lifecycle_hook_name
-    lifecycle_transition    = var.initial_lifecycle_hook_lifecycle_transition
-    notification_metadata   = var.initial_lifecycle_hook_notification_metadata
-    heartbeat_timeout       = var.initial_lifecycle_hook_heartbeat_timeout
-    notification_target_arn = var.initial_lifecycle_hook_notification_target_arn
-    role_arn                = var.initial_lifecycle_hook_role_arn
-    default_result          = var.initial_lifecycle_hook_default_result
+  dynamic "initial_lifecycle_hook" {
+    for_each = var.create_asg && var.create_asg_with_initial_lifecycle_hook ? [1] : []
+    content {
+      name                    = var.initial_lifecycle_hook_name
+      lifecycle_transition    = var.initial_lifecycle_hook_lifecycle_transition
+      notification_metadata   = var.initial_lifecycle_hook_notification_metadata
+      heartbeat_timeout       = var.initial_lifecycle_hook_heartbeat_timeout
+      notification_target_arn = var.initial_lifecycle_hook_notification_target_arn
+      role_arn                = var.initial_lifecycle_hook_role_arn
+      default_result          = var.initial_lifecycle_hook_default_result
+    }
   }
 
   tags = concat(
@@ -228,6 +244,7 @@ resource "aws_autoscaling_group" "this_with_initial_lifecycle_hook" {
 
   lifecycle {
     create_before_destroy = true
+    ignore_changes        = [desired_capacity]
   }
 }
 
