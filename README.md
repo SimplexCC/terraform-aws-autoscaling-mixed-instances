@@ -11,9 +11,33 @@ This module will require more than 1 instance type. Suitable to back ECS Cluster
 
 ## Terraform versions
 
-Terraform 0.12. Pin module version to `~> v2.0`. Submit pull-requests to `main` branch.
+Terraform 0.12. Pin module version to `~> v3.0`. Submit pull-requests to `main` branch.
 
 Terraform 0.11. Pin module version to `~> v1.0`. Submit pull-requests to `terraform011` branch.
+
+## Versioning
+
+This module uses Semver.
+
+`x.y.z`
+
+`x` shall change when there's major language or breaking feature change (e.g. 0.11 to 0.12 which drastically change the language)
+
+`y` shall change when there's feature addition which is not breaking existing API (e.g. addition of some parameters with default value)
+
+`z` shall change when there's documentation updates, minor fixes, etc.
+
+## Version 3.0.0
+
+Version 3.0.0 introduces a breaking change, which is in the way the module internally handles initial lifecycle hook flag.
+Auto Scaling group with initial lifecycle hook and without initial lifecycle hook are defined as different resources on version 2.0.0 and below.
+Therefore, the resource identifier will be different between ASG with and without initial lifecycle hook.
+In version 3.0.0 dynamic block is used and therefore the resource identifier are the same.
+
+Other than that, version 3.0.0 allows you to set whether to ignore desired capacity changes or not.
+This is useful, for example, when using target-tracking autoscaling on your ASG.
+If desired capacity is not ignored, it will be reset whenever you do `terraform apply`.
+Refer to usage and input on how to set the flag.
 
 ## Amazon Documentations
 * [Autoscaling Group with Multiple Instance Types and Purchase Options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html)
@@ -24,7 +48,7 @@ Terraform 0.11. Pin module version to `~> v1.0`. Submit pull-requests to `terraf
 ```hcl
 module "asg" {
   source = "HENNGE/autoscaling-mixed-instances/aws"
-  version = "2.0.0"
+  version = "3.0.0"
 
   name = "service"
 
@@ -67,6 +91,8 @@ module "asg" {
   max_size                  = 1
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
+  
+  ignore_desired_capacity_changes = true
 
   tags = [
     {
@@ -186,6 +212,7 @@ No requirements.
 | health\_check\_grace\_period | Time (in seconds) after instance comes into service before checking health | `number` | `300` | no |
 | health\_check\_type | Controls how health checking is done. Values are - EC2 and ELB | `string` | n/a | yes |
 | iam\_instance\_profile | The IAM instance profile to associate with launched instances | `string` | `""` | no |
+| ignore\_desired\_capacity\_changes | Ignores any changes to `desired_count` parameter after apply. Note updating this value will destroy the existing service and recreate it. | `bool` | `false` | no |
 | image\_id | The EC2 image ID to launch | `string` | `""` | no |
 | initial\_lifecycle\_hook\_default\_result | Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. The value for this parameter can be either CONTINUE or ABANDON | `string` | `"ABANDON"` | no |
 | initial\_lifecycle\_hook\_heartbeat\_timeout | Defines the amount of time, in seconds, that can elapse before the lifecycle hook times out. When the lifecycle hook times out, Auto Scaling performs the action defined in the DefaultResult parameter | `string` | `"60"` | no |
