@@ -15,7 +15,19 @@ Terraform 0.12. Pin module version to `~> v3.0`. Submit pull-requests to `main` 
 
 Terraform 0.11. Pin module version to `~> v1.0`. Submit pull-requests to `terraform011` branch.
 
-## About version 3.0.0
+## Versioning
+
+This module uses Semver.
+
+`x.y.z`
+
+`x` shall change when there's major language or breaking feature change (e.g. 0.11 to 0.12 which drastically change the language)
+
+`y` shall change when there's feature addition which is not breaking existing API (e.g. addition of some parameters with default value)
+
+`z` shall change when there's documentation updates, minor fixes, etc.
+
+## Version 3.0.0
 
 Version 3.0.0 introduces a breaking change, which is in the way the module internally handles initial lifecycle hook flag.
 Auto Scaling group with initial lifecycle hook and without initial lifecycle hook are defined as different resources on version 2.0.0 and below.
@@ -23,6 +35,8 @@ Therefore, the resource identifier will be different between ASG with and withou
 In version 3.0.0 dynamic block is used and therefore the resource identifier are the same.
 
 Other than that, version 3.0.0 allows you to set whether to ignore desired capacity changes or not.
+This is useful, for example, when using target-tracking autoscaling on your ASG.
+If desired capacity is not ignored, it will be reset whenever you do `terraform apply`.
 Refer to usage and input on how to set the flag.
 
 ## Amazon Documentations
