@@ -57,7 +57,7 @@ module "asg" {
 
   image_id        = "ami-ebd02392"
   security_groups = ["sg-12345678"]
-  
+
   block_device_mappings = [
     {
       # Root block device
@@ -91,7 +91,7 @@ module "asg" {
   max_size                  = 1
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
-  
+
   ignore_desired_capacity_changes = true
 
   tags = [
@@ -111,7 +111,7 @@ module "asg" {
     extra_tag1 = "extra_value1"
     extra_tag2 = "extra_value2"
   }
-  
+
   instance_types = [
     {
       instance_type = "t2.micro",
@@ -252,6 +252,10 @@ No requirements.
 | vpc\_zone\_identifier | A list of subnet IDs to launch resources in | `list(string)` | n/a | yes |
 | wait\_for\_capacity\_timeout | A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior. | `string` | `"10m"` | no |
 | wait\_for\_elb\_capacity | Setting this will cause Terraform to wait for exactly this number of healthy instances in all attached load balancers on both create and update operations. Takes precedence over min\_elb\_capacity behavior. | `number` | `null` | no |
+| asg\_instance\_refresh\_strategy | The strategy to use for instance refresh. The only allowed value is `Rolling`. | `string` | `Rolling` | no |
+| asg\_instance\_refresh\_warmup | The number of seconds until a newly launched instance is configured and ready to use. | `number` | `300` | no |
+| asg\_instance\_refresh\_healthy\_percentage | The amount of capacity in the Auto Scaling group that must remain healthy during an instance refresh to allow the operation to continue, as a percentage of the desired capacity of the Auto Scaling group. | `number` | `90` | no |
+| asg\_instance\_refresh\_additional\_triggers | Set of additional property names that will trigger an Instance Refresh. A refresh will always be triggered by a change in any of launch_configuration, launch_template, or mixed_instances_policy. | `list(string)` | <pre>[<br>  "tags"<br>]</pre> | no |
 
 ## Outputs
 

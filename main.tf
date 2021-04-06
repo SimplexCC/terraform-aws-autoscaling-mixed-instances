@@ -147,6 +147,15 @@ resource "aws_autoscaling_group" "this" {
     local.tags_asg_format,
   )
 
+  instance_refresh {
+    strategy = var.asg_instance_refresh_strategy
+    preferences {
+      instance_warmup = var.asg_instance_refresh_warmup
+      min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
+    }
+    triggers = var.asg_instance_refresh_additional_triggers
+  }
+
   lifecycle {
     create_before_destroy = true
   }
@@ -241,6 +250,15 @@ resource "aws_autoscaling_group" "this_ignore_desired_capacity_changes" {
     var.tags,
     local.tags_asg_format,
   )
+
+  instance_refresh {
+    strategy = var.asg_instance_refresh_strategy
+    preferences {
+      instance_warmup = var.asg_instance_refresh_warmup
+      min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
+    }
+    triggers = var.asg_instance_refresh_additional_triggers
+  }
 
   lifecycle {
     create_before_destroy = true
