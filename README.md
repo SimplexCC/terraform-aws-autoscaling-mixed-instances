@@ -255,7 +255,7 @@ No requirements.
 | asg\_instance\_refresh\_strategy | The strategy to use for instance refresh. The only allowed value is `Rolling`. | `string` | `null` | no |
 | asg\_instance\_refresh\_warmup | The number of seconds until a newly launched instance is configured and ready to use. | `number` | `null` | no |
 | asg\_instance\_refresh\_healthy\_percentage | The amount of capacity in the Auto Scaling group that must remain healthy during an instance refresh to allow the operation to continue, as a percentage of the desired capacity of the Auto Scaling group. | `number` | `null` | no |
-| asg\_instance\_refresh\_additional\_triggers | Set of additional property names that will trigger an Instance Refresh. A refresh will always be triggered by a change in any of launch_configuration, launch_template, or mixed_instances_policy. | `list(string)` | <pre>[<br>  "tags"<br>]</pre> | no |
+| asg\_instance\_refresh\_additional\_triggers | Set of additional property names that will trigger an Instance Refresh. A refresh will always be triggered by a change in any of launch_configuration, launch_template, or mixed_instances_policy. | `list(string)` | `null` | no |
 
 ## Outputs
 

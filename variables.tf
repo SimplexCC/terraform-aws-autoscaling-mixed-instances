@@ -361,5 +361,5 @@ variable "asg_instance_refresh_healthy_percentage" {
 variable "asg_instance_refresh_additional_triggers" {
   description = "Set of additional property names that will trigger an Instance Refresh. A refresh will always be triggered by a change in any of launch_configuration, launch_template, or mixed_instances_policy."
   type        = list(string)
-  default     = ["tags"]
+  default     = null
 }
