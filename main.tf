@@ -147,13 +147,22 @@ resource "aws_autoscaling_group" "this" {
     local.tags_asg_format,
   )
 
-  instance_refresh {
-    strategy = var.asg_instance_refresh_strategy
-    preferences {
-      instance_warmup = var.asg_instance_refresh_warmup
-      min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
+  dynamic "instance_refresh" {
+    for_each = var.asg_instance_refresh_strategy != null ? [1] : []
+
+    content {
+        strategy = var.asg_instance_refresh_strategy
+        triggers = var.asg_instance_refresh_additional_triggers
+
+        dynamic "preferences" {
+          for_each = var.asg_instance_refresh_warmup != null || var.asg_instance_refresh_healthy_percentage != null ? [1] : []
+
+          content {
+            instance_warmup = var.asg_instance_refresh_warmup
+            min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
+          }
+        }
     }
-    triggers = var.asg_instance_refresh_additional_triggers
   }
 
   lifecycle {
@@ -251,13 +260,22 @@ resource "aws_autoscaling_group" "this_ignore_desired_capacity_changes" {
     local.tags_asg_format,
   )
 
-  instance_refresh {
-    strategy = var.asg_instance_refresh_strategy
-    preferences {
-      instance_warmup = var.asg_instance_refresh_warmup
-      min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
+  dynamic "instance_refresh" {
+    for_each = var.asg_instance_refresh_strategy != null ? [1] : []
+
+    content {
+        strategy = var.asg_instance_refresh_strategy
+        triggers = var.asg_instance_refresh_additional_triggers
+
+        dynamic "preferences" {
+          for_each = var.asg_instance_refresh_warmup != null || var.asg_instance_refresh_healthy_percentage != null ? [1] : []
+
+          content {
+            instance_warmup = var.asg_instance_refresh_warmup
+            min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
+          }
+        }
     }
-    triggers = var.asg_instance_refresh_additional_triggers
   }
 
   lifecycle {

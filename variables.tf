@@ -343,19 +343,19 @@ variable "capacity_rebalance" {
 variable "asg_instance_refresh_strategy" {
   description = "The strategy to use for instance refresh. The only allowed value is `Rolling`."
   type        = string
-  default     = "Rolling"
+  default     = null
 }
 
 variable "asg_instance_refresh_warmup" {
   description = "The number of seconds until a newly launched instance is configured and ready to use."
   type        = number
-  default     = 300
+  default     = null
 }
 
 variable "asg_instance_refresh_healthy_percentage" {
   description = "The amount of capacity in the Auto Scaling group that must remain healthy during an instance refresh to allow the operation to continue, as a percentage of the desired capacity of the Auto Scaling group."
   type        = number
-  default     = 90
+  default     = null
 }
 
 variable "asg_instance_refresh_additional_triggers" {
