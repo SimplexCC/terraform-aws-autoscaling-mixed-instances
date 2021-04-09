@@ -147,6 +147,24 @@ resource "aws_autoscaling_group" "this" {
     local.tags_asg_format,
   )
 
+  dynamic "instance_refresh" {
+    for_each = var.asg_instance_refresh_strategy != null ? [1] : []
+
+    content {
+        strategy = var.asg_instance_refresh_strategy
+        triggers = var.asg_instance_refresh_additional_triggers
+
+        dynamic "preferences" {
+          for_each = var.asg_instance_refresh_warmup != null || var.asg_instance_refresh_healthy_percentage != null ? [1] : []
+
+          content {
+            instance_warmup = var.asg_instance_refresh_warmup
+            min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
+          }
+        }
+    }
+  }
+
   lifecycle {
     create_before_destroy = true
   }
@@ -241,6 +259,24 @@ resource "aws_autoscaling_group" "this_ignore_desired_capacity_changes" {
     var.tags,
     local.tags_asg_format,
   )
+
+  dynamic "instance_refresh" {
+    for_each = var.asg_instance_refresh_strategy != null ? [1] : []
+
+    content {
+        strategy = var.asg_instance_refresh_strategy
+        triggers = var.asg_instance_refresh_additional_triggers
+
+        dynamic "preferences" {
+          for_each = var.asg_instance_refresh_warmup != null || var.asg_instance_refresh_healthy_percentage != null ? [1] : []
+
+          content {
+            instance_warmup = var.asg_instance_refresh_warmup
+            min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
+          }
+        }
+    }
+  }
 
   lifecycle {
     create_before_destroy = true
