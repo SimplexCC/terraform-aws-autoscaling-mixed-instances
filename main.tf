@@ -101,7 +101,7 @@ resource "aws_autoscaling_group" "this" {
     launch_template {
       launch_template_specification {
         launch_template_id = var.create_lt ? element(concat(aws_launch_template.this.*.id, [""]), 0) : var.launch_template
-        version            = "$Latest"
+        version            = local.lt_version
       }
 
       dynamic "override" {
@@ -151,17 +151,17 @@ resource "aws_autoscaling_group" "this" {
     for_each = var.asg_instance_refresh_strategy != null ? [1] : []
 
     content {
-        strategy = var.asg_instance_refresh_strategy
-        triggers = var.asg_instance_refresh_additional_triggers
+      strategy = var.asg_instance_refresh_strategy
+      triggers = var.asg_instance_refresh_additional_triggers
 
-        dynamic "preferences" {
-          for_each = var.asg_instance_refresh_warmup != null || var.asg_instance_refresh_healthy_percentage != null ? [1] : []
+      dynamic "preferences" {
+        for_each = var.asg_instance_refresh_warmup != null || var.asg_instance_refresh_healthy_percentage != null ? [1] : []
 
-          content {
-            instance_warmup = var.asg_instance_refresh_warmup
-            min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
-          }
+        content {
+          instance_warmup        = var.asg_instance_refresh_warmup
+          min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
         }
+      }
     }
   }
 
@@ -214,7 +214,7 @@ resource "aws_autoscaling_group" "this_ignore_desired_capacity_changes" {
     launch_template {
       launch_template_specification {
         launch_template_id = var.create_lt ? element(concat(aws_launch_template.this.*.id, [""]), 0) : var.launch_template
-        version            = "$Latest"
+        version            = local.lt_version
       }
 
       dynamic "override" {
@@ -264,17 +264,17 @@ resource "aws_autoscaling_group" "this_ignore_desired_capacity_changes" {
     for_each = var.asg_instance_refresh_strategy != null ? [1] : []
 
     content {
-        strategy = var.asg_instance_refresh_strategy
-        triggers = var.asg_instance_refresh_additional_triggers
+      strategy = var.asg_instance_refresh_strategy
+      triggers = var.asg_instance_refresh_additional_triggers
 
-        dynamic "preferences" {
-          for_each = var.asg_instance_refresh_warmup != null || var.asg_instance_refresh_healthy_percentage != null ? [1] : []
+      dynamic "preferences" {
+        for_each = var.asg_instance_refresh_warmup != null || var.asg_instance_refresh_healthy_percentage != null ? [1] : []
 
-          content {
-            instance_warmup = var.asg_instance_refresh_warmup
-            min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
-          }
+        content {
+          instance_warmup        = var.asg_instance_refresh_warmup
+          min_healthy_percentage = var.asg_instance_refresh_healthy_percentage
         }
+      }
     }
   }
 
