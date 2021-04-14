@@ -19,23 +19,42 @@ Note that this example may create resources which cost money. Run `terraform des
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.26 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.30 |
+| <a name="requirement_null"></a> [null](#requirement\_null) | >= 2.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.30 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_example"></a> [example](#module\_example) | ../../ |  |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_launch_template.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
+| [aws_ami.amazon_linux](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_subnet_ids.all](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids) | data source |
+| [aws_vpc.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
 
 ## Inputs
 
-No input.
+No inputs.
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| this\_autoscaling\_group\_id | The autoscaling group id |
-| this\_launch\_template\_id | The ID of the launch template |
-
+| <a name="output_this_autoscaling_group_id"></a> [this\_autoscaling\_group\_id](#output\_this\_autoscaling\_group\_id) | The autoscaling group id |
+| <a name="output_this_launch_template_id"></a> [this\_launch\_template\_id](#output\_this\_launch\_template\_id) | The ID of the launch template |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -138,6 +138,7 @@ variable "enable_monitoring" {
 
 variable "ebs_optimized" {
   description = "If true, the launched EC2 instance will be EBS-optimized"
+  type        = bool
   default     = false
 }
 
