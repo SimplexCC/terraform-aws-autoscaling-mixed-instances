@@ -101,7 +101,7 @@ resource "aws_autoscaling_group" "this" {
     launch_template {
       launch_template_specification {
         launch_template_id = var.create_lt ? element(concat(aws_launch_template.this.*.id, [""]), 0) : var.launch_template
-        version            = "$Latest"
+        version            = local.lt_version
       }
 
       dynamic "override" {
@@ -214,7 +214,7 @@ resource "aws_autoscaling_group" "this_ignore_desired_capacity_changes" {
     launch_template {
       launch_template_specification {
         launch_template_id = var.create_lt ? element(concat(aws_launch_template.this.*.id, [""]), 0) : var.launch_template
-        version            = "$Latest"
+        version            = local.lt_version
       }
 
       dynamic "override" {
