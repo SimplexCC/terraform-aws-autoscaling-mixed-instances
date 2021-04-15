@@ -1,6 +1,6 @@
 locals {
-  this_launch_template_id   = var.launch_template == "" && var.create_lt ? concat(aws_launch_template.this.*.id, list(""))[0] : var.launch_template
-  this_launch_template_name = var.launch_template == "" && var.create_lt ? concat(aws_launch_template.this.*.name, list(""))[0] : ""
+  this_launch_template_id   = var.launch_template == "" && var.create_lt ? concat(aws_launch_template.this.*.id, [""])[0] : var.launch_template
+  this_launch_template_name = var.launch_template == "" && var.create_lt ? concat(aws_launch_template.this.*.name, [""])[0] : ""
 
   this_autoscaling_group_id                        = concat(aws_autoscaling_group.this.*.id, aws_autoscaling_group.this_ignore_desired_capacity_changes.*.id, [""])[0]
   this_autoscaling_group_name                      = concat(aws_autoscaling_group.this.*.name, aws_autoscaling_group.this_ignore_desired_capacity_changes.*.name, [""])[0]
