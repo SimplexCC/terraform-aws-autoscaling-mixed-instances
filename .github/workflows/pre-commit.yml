@@ -111,6 +111,8 @@ jobs:
           popd
       - name: Install pre-commit dependency - tflint
         uses: terraform-linters/setup-tflint@v2
+        with:
+          tflint_version: v0.26.0
       - name: Execute pre-commit
         # Run all pre-commit checks on max version supported
         if: ${{ matrix.version ==  needs.getBaseVersion.outputs.maxVersion }}
