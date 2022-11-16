@@ -36,7 +36,7 @@ Note that this example may create resources which cost money. Run `terraform des
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_elb"></a> [elb](#module\_elb) | terraform-aws-modules/elb/aws |  |
+| <a name="module_elb"></a> [elb](#module\_elb) | terraform-aws-modules/elb/aws | ~> 2.0 |
 | <a name="module_example_asg"></a> [example\_asg](#module\_example\_asg) | ../../ |  |
 
 ## Resources
