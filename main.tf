@@ -4,7 +4,7 @@
 resource "aws_launch_template" "this" {
   count = var.create_lt ? 1 : 0
 
-  name_prefix   = "${coalesce(var.lt_name, var.name)}-"
+  name_prefix   = "${coalesce(var.lt_name, var.name)}"
   image_id      = var.image_id
   instance_type = ""
   key_name      = var.key_name
@@ -71,7 +71,7 @@ resource "aws_autoscaling_group" "this" {
         var.recreate_asg_when_lt_changes ? element(concat(random_pet.asg_name.*.id, [""]), 0) : "",
       ],
     ),
-  )}-"
+  )}"
   vpc_zone_identifier = var.vpc_zone_identifier
   max_size            = var.max_size
   min_size            = var.min_size
